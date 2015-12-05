@@ -1,4 +1,4 @@
-package com.refugeephones.app;
+package com.refugeephones.app.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,12 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.refugeephones.app.MyApplication;
+import com.refugeephones.app.activity.BaseActivity;
 import com.refugeephones.app.utils.AppLog;
-import com.refugeephones.app.utils.Catalyst;
-
-import java.util.List;
 
 /**
  * Base fragment class to serve all other fragments.

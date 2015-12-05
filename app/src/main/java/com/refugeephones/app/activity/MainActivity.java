@@ -7,9 +7,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 
-import com.refugeephones.app.BaseActivity;
-import com.refugeephones.app.BaseFragment;
-import com.refugeephones.app.NewsFragment;
+import com.refugeephones.app.fragment.BaseFragment;
+import com.refugeephones.app.fragment.NewsFragment;
 import com.refugeephones.app.R;
 import com.refugeephones.app.fragment.FragApps;
 import com.refugeephones.app.utils.AppLog;

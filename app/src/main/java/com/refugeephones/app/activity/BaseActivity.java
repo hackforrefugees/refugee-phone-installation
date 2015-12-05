@@ -1,4 +1,4 @@
-package com.refugeephones.app;
+package com.refugeephones.app.activity;
 
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.refugeephones.app.MyApplication;
 import com.refugeephones.app.utils.AppLog;
 import com.refugeephones.app.utils.Catalyst;
 
@@ -188,7 +189,7 @@ public class BaseActivity extends AppCompatActivity {
      * As a good practice, you must unregister your listener in <b>onStop()</b> of your Activity's life-cycle by calling <b>unregisterTicTocListener</b>.<br />
      * Otherwise, the {@link BaseActivity} will automatically unregister it in its <b>onDestroy()</b> call.
      * @param listener {@link TicTocListener} object
-     * @param interval {@link com.refugeephones.app.BaseActivity.TicTocListener.RefreshInterval} object
+     * @param interval {@link BaseActivity.TicTocListener.RefreshInterval} object
      */
     public void registerTicTocListener(TicTocListener listener, TicTocListener.RefreshInterval interval){
         //verify of the tictoc listener is already added in the que

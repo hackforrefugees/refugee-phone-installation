@@ -1,11 +1,14 @@
-package com.refugeephones.app;
+package com.refugeephones.app.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
+
+import com.refugeephones.app.NewsItem;
+import com.refugeephones.app.NewsItemAdapter;
+import com.refugeephones.app.R;
 
 import java.util.ArrayList;
 

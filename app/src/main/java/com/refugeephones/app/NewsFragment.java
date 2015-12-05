@@ -1,22 +1,19 @@
 package com.refugeephones.app;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class NewsFragment extends BaseFragment {
     private ListView m_newsListView;
-    private String[] m_newsItems = new String[] {"Apple", "Banana", "Citrus"};
+    private String[] m_newsItemsMoc = new String[] {"Apple", "Banana", "Citrus"};
+
+    private ArrayList<NewsItem> mNewsItems = new ArrayList<NewsItem>();
 
     public NewsFragment() {
         // Required empty public constructor
@@ -25,6 +22,12 @@ public class NewsFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        for (String str:m_newsItemsMoc) {
+            NewsItem item = new NewsItem(str, "subtitle", "snippet");
+            mNewsItems.add(item);
+        }
     }
 
     @Override
@@ -39,11 +42,10 @@ public class NewsFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         m_newsListView = (ListView)view.findViewById(R.id.newsListView);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_news_row);
-        for (String item: m_newsItems) {
-            adapter.add(item);
-        }
-        m_newsListView.setAdapter(adapter);
+        NewsItemAdapter newsItemAdapter = new NewsItemAdapter(getActivity());
+        newsItemAdapter.updateItems(mNewsItems);
+        m_newsListView.setAdapter(newsItemAdapter);
     }
+
+
 }

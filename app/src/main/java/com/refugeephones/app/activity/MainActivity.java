@@ -8,8 +8,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 
 import com.refugeephones.app.BaseActivity;
+import com.refugeephones.app.BaseFragment;
+import com.refugeephones.app.NewsFragment;
 import com.refugeephones.app.R;
 import com.refugeephones.app.fragment.Temp;
+import com.refugeephones.app.utils.AppLog;
 
 /**
  * Main launching activity
@@ -58,10 +61,27 @@ public class MainActivity extends BaseActivity {
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                Fragment frag = new Temp();
-                Bundle b = new Bundle();
-                b.putString("val", arrayTabs[position]);
-                frag.setArguments(b);
+
+                BaseFragment frag = null;
+
+                switch (position) {
+                    case 0: {
+                        frag = new Temp();
+                        Bundle b = new Bundle();
+                        b.putString("val", arrayTabs[position]);
+                        frag.setArguments(b);
+                    }
+                        break;
+                    case 1: {
+                        frag = new NewsFragment();
+                    }
+                        break;
+                    default:
+                        AppLog.debug(TAG, "Unknown page position.");
+                        break;
+
+                }
+
                 return frag;
             }
 

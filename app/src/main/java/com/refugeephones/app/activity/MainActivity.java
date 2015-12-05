@@ -11,7 +11,7 @@ import com.refugeephones.app.BaseActivity;
 import com.refugeephones.app.BaseFragment;
 import com.refugeephones.app.NewsFragment;
 import com.refugeephones.app.R;
-import com.refugeephones.app.fragment.Temp;
+import com.refugeephones.app.fragment.FragApps;
 import com.refugeephones.app.utils.AppLog;
 
 /**
@@ -66,10 +66,7 @@ public class MainActivity extends BaseActivity {
 
                 switch (position) {
                     case 0: {
-                        frag = new Temp();
-                        Bundle b = new Bundle();
-                        b.putString("val", arrayTabs[position]);
-                        frag.setArguments(b);
+                        frag = new FragApps();
                     }
                         break;
                     case 1: {

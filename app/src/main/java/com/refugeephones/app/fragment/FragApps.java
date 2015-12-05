@@ -4,17 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.refugeephones.app.BaseFragment;
+import com.refugeephones.app.R;
 
 /**
+ * Fragment to show apps list
  * Created by Waqas on 005 05-Dec-15.
  */
-public class Temp extends BaseFragment {
-    private final String TAG = "Temp";
-
-    private TextView textView = null;
+public class FragApps extends BaseFragment {
+    private final String TAG = "FragApps";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,20 +21,22 @@ public class Temp extends BaseFragment {
         super.onCreate(savedInstanceState);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //return super.onCreateView(inflater, container, savedInstanceState);
-        textView = new TextView(container.getContext());
+        return inflater.inflate(R.layout.frag_apps, container, false);
+    }
 
-        return textView;
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        textView.setText(getArguments().getString("val"));
     }
+
 
 }

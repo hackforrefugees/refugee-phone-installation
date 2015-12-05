@@ -11,5 +11,13 @@ public class BaseActivity extends AppCompatActivity {
     private String TAG = "BaseActivity";
 
 
+    /**
+     * Get our own custom made application
+     * @return {@link MyApplication}
+     */
+    public MyApplication getMyApplication(){
+        return (MyApplication) getApplication();
+    }
+
 
 }

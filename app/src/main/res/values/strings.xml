@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Refugee Phone</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="waq">dfsfsd</string>
+
+
+    <string-array name="arrayTabs">
+        <item>Apps</item>
+        <item>News</item>
+    </string-array>
+
+
 </resources>

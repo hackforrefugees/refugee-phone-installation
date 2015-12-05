@@ -1,19 +1,97 @@
 package com.refugeephones.app.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 
 import com.refugeephones.app.BaseActivity;
 import com.refugeephones.app.R;
+import com.refugeephones.app.fragment.Temp;
 
+/**
+ * Main launching activity
+ */
 public class MainActivity extends BaseActivity {
     private final String TAG = "MainActivity";
 
+    private ViewPager viewPager = null;
+
+
     @Override
+    @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         setTag(TAG);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final String[] arrayTabs = getResources().getStringArray(R.array.arrayTabs);
+        final ActionBar actionBar = getSupportActionBar();
 
+        //init views
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+
+        //set actionbar to show tabs
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        // Create a tab listener that is called when the user changes tabs.
+        final ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+                viewPager.setCurrentItem(tab.getPosition(), true);
+            }
+
+            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+                // hide the given tab
+            }
+
+            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+                // probably ignore this event
+            }
+        };
+
+        // Add tabs to actionbar, specifying the tab's text and TabListener
+        for (int i = 0; i < arrayTabs.length; i++)
+            actionBar.addTab(actionBar.newTab().setText(arrayTabs[i]).setTabListener(tabListener));
+
+        //set fragments pager
+        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                Fragment frag = new Temp();
+                Bundle b = new Bundle();
+                b.putString("val", arrayTabs[position]);
+                frag.setArguments(b);
+                return frag;
+            }
+
+            @Override
+            public int getCount() {
+                return arrayTabs.length;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return arrayTabs[position];
+            }
+        });
+        //add pager change listener to update actionbar tabs
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
     }
 

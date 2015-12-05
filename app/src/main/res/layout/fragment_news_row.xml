@@ -19,5 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Subtitle"
-        android:id="@+id/newsRowSubtitle" />
+        android:id="@+id/newsRowSubtitle"
+        android:maxLines="3" />
 </LinearLayout>

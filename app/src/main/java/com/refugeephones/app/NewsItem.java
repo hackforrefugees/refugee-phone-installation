@@ -1,5 +1,7 @@
 package com.refugeephones.app;
 
+import java.net.URL;
+
 /**
  * Created by magnus on 05/12/15.
  */
@@ -9,17 +11,16 @@ public class NewsItem {
     private String mtitle;
     private String mSubtitle;
     private String mSnippet;
+    private String mLink;
 
-    public NewsItem(String title, String subtitle, String snippet) {
-        this.mtitle = title;
-        this.mSubtitle = subtitle;
-        this.mSnippet = snippet;
+    public NewsItem() {
+
     }
-
 
     public long getId() {
         return mId;
     }
+
 
     public void setId(long id) {
         this.mId = id;
@@ -47,5 +48,13 @@ public class NewsItem {
 
     public void setSnippet(String snippet) {
         this.mSnippet = snippet;
+    }
+
+    public String getLink() {
+        return mLink;
+    }
+
+    public void setLink(String link) {
+        this.mLink = link;
     }
 }

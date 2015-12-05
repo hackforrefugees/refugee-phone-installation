@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -56,7 +57,7 @@ public class NewsItemAdapter extends BaseAdapter {
 
         NewsItem item = getItem(position);
         title.setText(item.getTitle());
-        subtitle.setText(item.getSubtitle());
+        subtitle.setText(item.getSnippet());
 
         return convertView;
     }

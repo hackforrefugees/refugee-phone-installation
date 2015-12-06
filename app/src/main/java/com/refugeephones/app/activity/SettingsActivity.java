@@ -32,6 +32,7 @@ import com.refugeephones.app.fragment.ResourcesFragment;
 import com.refugeephones.app.utils.AppLog;
 import com.refugeephones.app.utils.Catalyst;
 import com.refugeephones.app.utils.Constants;
+import com.refugeephones.app.utils.Prefs;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -104,7 +105,6 @@ public class SettingsActivity extends BaseActivity {
                     con.setConnectTimeout((int) (DateUtils.SECOND_IN_MILLIS * CONNECTION_TIMEOUT));
                     con.setReadTimeout((int) (DateUtils.SECOND_IN_MILLIS * CONNECTION_TIMEOUT));
                     final String json = Catalyst.streamToString(con.getInputStream());
-                    AppLog.info(TAG, "json:"+json);
                     final JSONArray jar = new JSONObject(json).getJSONArray("languages");
                     final List<Language> list = new Gson().fromJson(jar.toString(), new TypeToken<List<Language>>() {
                     }.getType());
@@ -139,20 +139,15 @@ public class SettingsActivity extends BaseActivity {
 
                     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                    String selectedLanguage = loadLanguagePref();
-                    AppLog.info(TAG, "Selected language code before updating spinner:" + selectedLanguage);
+                    String selectedLanguage = Prefs.loadLanguagePref();
 
                     spinnerLanguages.setAdapter(dataAdapter);
 
-
                     int index = languageCodesList.indexOf(selectedLanguage);
-                    AppLog.info(TAG, "index "+index );
 
                     if(index != -1 && index < spinnerLanguages.getCount())
                         spinnerLanguages.setSelection(index);
-                    saveLanguagePref(selectedLanguage);
-
-                    AppLog.info(TAG, "Selected language code after updating spinner:" + loadLanguagePref());
+                    Prefs.saveLanguagePref(selectedLanguage);
                 }
                 else
                 {
@@ -173,7 +168,7 @@ public class SettingsActivity extends BaseActivity {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             if(languageSpinnerLoaded)
-                saveLanguagePref(languageCodesList.get(position));
+                Prefs.saveLanguagePref(languageCodesList.get(position));
             languageSpinnerLoaded = true;
         }
 
@@ -193,18 +188,5 @@ public class SettingsActivity extends BaseActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void saveLanguagePref(String lang)
-    {
-        SharedPreferences.Editor editor = getSharedPreferences(Constants.SHARED_PREFERENCES, MODE_PRIVATE).edit();
-        editor.putString(Constants.PREFERENCE_LANGUAGE, lang);
-        editor.commit();
-    }
-
-    private String loadLanguagePref()
-    {
-        SharedPreferences prefs = getSharedPreferences(Constants.SHARED_PREFERENCES, MODE_PRIVATE);
-        return  prefs.getString(Constants.PREFERENCE_LANGUAGE, "en");
     }
 }

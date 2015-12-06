@@ -1,6 +1,7 @@
 package com.refugeephones.app.fragment;
 
 import android.annotation.SuppressLint;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,8 @@ import com.refugeephones.app.NewsRecyclerViewAdapter;
 import com.refugeephones.app.R;
 import com.refugeephones.app.utils.AppLog;
 
+import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -98,7 +101,23 @@ public class NewsFragment extends BaseFragment {
             }
         }
 
-        @SuppressLint("LongLogTag")
+        public String getOgImage(String url) {
+            String imageUrl = "";
+            try {
+                org.jsoup.nodes.Document doc = Jsoup.connect(url).get();
+                //Elements meta = doc.select("meta");
+                for(org.jsoup.nodes.Element meta : doc.select("meta")) {
+                    if (meta.attr("property").equalsIgnoreCase("og:image")) {
+                        imageUrl = meta.attr("content");
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return imageUrl;
+        }
+
         @Override
         protected ArrayList<NewsItem> doInBackground(URL... urls) {
             URL url = urls[0];
@@ -136,8 +155,10 @@ public class NewsFragment extends BaseFragment {
                         link = linkList.item(0).getChildNodes().item(0).getNodeValue();
 
                     newsItem.setTitle(title);
-                    newsItem.setSnippet(description);
+                    String cleanDescription = description.replaceAll("\\n", "");
+                    newsItem.setSnippet(cleanDescription);
                     newsItem.setLink(link);
+                    newsItem.setImage(getOgImage(link));
 
                     items.add(newsItem);
                 }

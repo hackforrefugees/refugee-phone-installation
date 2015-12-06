@@ -1,5 +1,6 @@
 package com.refugeephones.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
@@ -7,7 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -55,6 +59,7 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
     public void onBindViewHolder(NewsViewHolder holder, int position) {
         holder.title.setText(mItems.get(position).getTitle());
         holder.description.setText(mItems.get(position).getSnippet());
+        Picasso.with(holder.getContext()).load(mItems.get(position).getImage()).into(holder.image);
     }
 
     @Override
@@ -66,14 +71,24 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
         CardView cv;
         TextView title;
         TextView description;
+        ImageView image;
         String link;
+
+        Context context;
+
+        public Context getContext() {
+            return context;
+        }
 
         NewsViewHolder(View itemView) {
             super(itemView);
 
+            this.context = itemView.getContext();
+
             cv = (CardView)itemView.findViewById(R.id.card_view);
             title = (TextView)itemView.findViewById(R.id.title);
             description = (TextView)itemView.findViewById(R.id.description);
+            image = (ImageView)itemView.findViewById(R.id.card_image_view);
         }
     }
 }

@@ -12,6 +12,7 @@ public class NewsItem {
     private String mSubtitle;
     private String mSnippet;
     private String mLink;
+    private String mImage;
 
     public NewsItem() {
 
@@ -56,5 +57,13 @@ public class NewsItem {
 
     public void setLink(String link) {
         this.mLink = link;
+    }
+
+    public String getImage() {
+        return mImage;
+    }
+
+    public void setImage(String image) {
+        this.mImage = image;
     }
 }

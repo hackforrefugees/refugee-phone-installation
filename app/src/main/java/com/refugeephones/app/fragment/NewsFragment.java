@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.refugeephones.app.NewsItem;
 import com.refugeephones.app.NewsRecyclerViewAdapter;
@@ -41,9 +42,17 @@ public class NewsFragment extends BaseFragment {
     private String FEED_URL = "http://www.refugeephones.com/news?format=rss";
     private ArrayList<NewsItem> mNewsItems = new ArrayList<NewsItem>();
     private RecyclerView mNewsRecyclerView;
+    private ImageView mSadFaceImageView;
 
     public NewsFragment() {
         // Required empty public constructor
+    }
+
+    public void hideSadFace() {
+        mSadFaceImageView.setVisibility(ImageView.INVISIBLE);
+    }
+    public void showSadFace() {
+        mSadFaceImageView.setVisibility(ImageView.VISIBLE);
     }
 
     @Override
@@ -73,6 +82,8 @@ public class NewsFragment extends BaseFragment {
         mNewsRecyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         mNewsRecyclerView.setLayoutManager(llm);
+
+        mSadFaceImageView = (ImageView)view.findViewById(R.id.noContentImageView);
 
         NewsRecyclerViewAdapter nrvAdapter = new NewsRecyclerViewAdapter(mNewsItems);
         mNewsRecyclerView.setAdapter(nrvAdapter);
@@ -178,6 +189,11 @@ public class NewsFragment extends BaseFragment {
         protected void onPostExecute(ArrayList<NewsItem> newsItems) {
             AppLog.debug(TAG, "post execute");
             mNewsItems = newsItems;
+
+            if (newsItems.size() > 0)
+                hideSadFace();
+            else
+                showSadFace();
 
             ((NewsRecyclerViewAdapter)mNewsRecyclerView.getAdapter()).updateItems(newsItems);
         }

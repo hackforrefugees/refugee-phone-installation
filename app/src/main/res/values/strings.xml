@@ -1,14 +1,15 @@
 <resources>
     <string name="app_name">Refugee Phone</string>
 
-    <string name="waq">dfsfsd</string>
-    <string name="open">Open</string>
-
-
     <string-array name="arrayTabs">
-        <item>Apps</item>
+        <item>Resources</item>
         <item>News</item>
     </string-array>
 
+    <string name="open">Open</string>
+
+    <string name="downloading_data">Fetching data...</string>
+
+    <string name="settings">Settings</string>
 
 </resources>

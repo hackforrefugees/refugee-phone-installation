@@ -1,27 +1,49 @@
 package com.refugeephones.app;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
+ * Data container for ResourceItem
  * Created by magnus on 05/12/15.
  */
 public class ResourceItem {
-
+    @SerializedName("id")
     private long mId;
-    private ResourceType mType;
+    @SerializedName("type")
+    private String mType;
+    @SerializedName("name")
     private String mName;
+    @SerializedName("link")
     private String mLink;
+    @SerializedName("description")
     private String mDescription;
-    private String mLanguage; // enum?
+    @SerializedName("language")
+    private String mLanguage; // enum? ... nope, use iso names
+    @SerializedName("icon")
     private String mIcon;
 
-    public enum ResourceType
-    {
-        FACEBOOK,
-        URL,
-        YOUTUBE,
-        APP
+    /**
+     * Resource type
+     */
+    public enum ResourceType{
+        FACEBOOK("facebook"),
+        URL("url"),
+        YOUTUBE("youtube"),
+        APP("app"),
+        UNKNOWN("unknown");
+
+        private String alias;
+        private ResourceType(String str){ alias = str; }
+        public String getAlias(){ return alias; }
+        public static ResourceType getByAlias(String alias){
+            for(ResourceType res : ResourceType.values())
+                if(res.alias.equalsIgnoreCase(alias))
+                    return res;
+            return ResourceType.UNKNOWN;
+        }
     }
 
-    public ResourceItem(long id, String name, String link, String description, String language, ResourceType type, String icon) {
+    /*public ResourceItem(long id, String name, String link, String description, String language, ResourceType type, String icon) {
         this.mId = id;
         this.mName = name;
         this.mLink = link;
@@ -29,7 +51,7 @@ public class ResourceItem {
         this.mDescription = description;
         this.mType = type;
         this.mIcon = icon;
-    }
+    }*/
 
 
 
@@ -37,56 +59,28 @@ public class ResourceItem {
         return mIcon;
     }
 
-    public void setIcon(String icon) {
-        this.mIcon = icon;
-    }
-
     public ResourceType getType() {
-        return mType;
-    }
-
-    public void setType(ResourceType type) {
-        this.mType = type;
+        return ResourceType.getByAlias(mType);
     }
 
     public String getName() {
         return mName;
     }
 
-    public void setName(String name) {
-        this.mName = mName;
-    }
-
     public String getLink() {
         return mLink;
-    }
-
-    public void setLink(String link) {
-        this.mLink = link;
     }
 
     public String getDescription() {
         return mDescription;
     }
 
-    public void setDescription(String description) {
-        this.mDescription = description;
-    }
-
     public String getLanguage() {
         return mLanguage;
     }
 
-    public void setLanguage(String language) {
-        this.mLanguage = language;
-    }
-
     public long getId() {
         return mId;
-    }
-
-    public void setId(long id) {
-        this.mId = id;
     }
 
 }

@@ -5,8 +5,9 @@
     android:orientation="vertical"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:paddingEnd="20dp"
-    android:paddingStart="20dp">
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+              android:minHeight="?android:listPreferredItemHeight">
 
     <TextView
         android:layout_width="match_parent"

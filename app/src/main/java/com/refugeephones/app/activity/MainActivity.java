@@ -6,11 +6,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.refugeephones.app.fragment.BaseFragment;
 import com.refugeephones.app.fragment.NewsFragment;
 import com.refugeephones.app.R;
-import com.refugeephones.app.fragment.FragApps;
+import com.refugeephones.app.fragment.ResourcesFragment;
 import com.refugeephones.app.utils.AppLog;
 
 /**
@@ -65,7 +67,7 @@ public class MainActivity extends BaseActivity {
 
                 switch (position) {
                     case 0: {
-                        frag = new FragApps();
+                        frag = new ResourcesFragment();
                     }
                         break;
                     case 1: {
@@ -108,8 +110,34 @@ public class MainActivity extends BaseActivity {
 
             }
         });
-
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem mi = menu.add(Menu.NONE, 1, Menu.NONE, R.string.settings);
+        mi.setIcon(android.R.drawable.ic_menu_preferences);
+        mi.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean retVal = true;
+
+        switch(item.getItemId()){
+            case 1:
+                toast("No available");
+                break;
+            default:
+                retVal = super.onOptionsItemSelected(item);
+        }
+
+        return retVal;
+    }
+
 
 
 }

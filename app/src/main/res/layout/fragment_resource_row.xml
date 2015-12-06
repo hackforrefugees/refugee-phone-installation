@@ -2,17 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+              android:minHeight="?android:listPreferredItemHeight"
     android:orientation="vertical"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:paddingEnd="20dp"
-    android:paddingStart="20dp"
-    android:id="@+id/resourceRowLayout">
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:id="@+id/resourceRowLayout"
+    android:gravity="center_vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:layout_width="30dp"
@@ -20,7 +21,6 @@
             android:scaleType="fitCenter"
             android:id="@+id/resourceRowIcon"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/notification_template_icon_bg"
             android:layout_marginRight="10dp"/>
 
         <TextView
@@ -29,14 +29,16 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Title"
             android:layout_toRightOf="@+id/resourceRowIcon"
+            android:layout_centerVertical="true"
             android:id="@+id/resourceRowName"/>
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:scaleType="fitCenter"
             android:id="@+id/resourceRowCollapseArrow"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/expandarrow24"/>
     </RelativeLayout>
 

@@ -45,7 +45,7 @@ public class NewsFragment extends BaseFragment {
     private final String TAG = "com.refugeephones.app.fragment.NewsFragment";
 
     private ListView m_newsListView;
-    private String FEED_URL = "http://www.gp.se/1.16942#sthash.B1QSY5si.dpuf";
+    private String FEED_URL = "http://www.refugeephones.com/news?format=rss";
 
     public NewsFragment() {
         // Required empty public constructor

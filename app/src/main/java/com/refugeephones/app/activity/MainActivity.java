@@ -15,6 +15,7 @@ import com.refugeephones.app.fragment.NewsFragment;
 import com.refugeephones.app.R;
 import com.refugeephones.app.fragment.ResourcesFragment;
 import com.refugeephones.app.utils.AppLog;
+import com.refugeephones.app.utils.Prefs;
 
 /**
  * Main launching activity
@@ -34,6 +35,7 @@ public class MainActivity extends BaseActivity {
         final String[] arrayTabs = getResources().getStringArray(R.array.arrayTabs);
         final ActionBar actionBar = getSupportActionBar();
 
+        new Prefs(this);
         //init views
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 

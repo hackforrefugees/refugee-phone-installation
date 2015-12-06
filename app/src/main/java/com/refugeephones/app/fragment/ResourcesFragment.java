@@ -18,6 +18,7 @@ import com.refugeephones.app.ResourceItem;
 import com.refugeephones.app.ResourceItemAdapter;
 import com.refugeephones.app.utils.AppLog;
 import com.refugeephones.app.utils.Catalyst;
+import com.refugeephones.app.utils.Prefs;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +43,12 @@ public class ResourcesFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         setTag(TAG);
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        downloadData();
     }
 
     @Override
@@ -70,13 +77,14 @@ public class ResourcesFragment extends BaseFragment {
 
     private void downloadData(){
         new AsyncTask<Void, Void, List<ResourceItem>>(){
-            private String urlResources = "https://www.dropbox.com/s/jlofdmj52jhndbl/resources_en.json?raw=1";
+            private String urlResources = "";
             private int CONNECTION_TIMEOUT = 30;   //seconds
 
             private Dialog diag = null;
 
             @Override
             protected void onPreExecute() {
+                urlResources = Prefs.loadLanguageUrlPref();
                 //resourceItemAdapter.clear();
                 diag = ProgressDialog.show(getBaseActivity(), null, getString(R.string.downloading_data), true, false);
             }
@@ -84,6 +92,7 @@ public class ResourcesFragment extends BaseFragment {
             @Override
             protected List<ResourceItem> doInBackground(Void... params) {
                 try{
+                    AppLog.debug(TAG, "Loading url "+urlResources);
                     final HttpURLConnection con = (HttpURLConnection) new URL(urlResources).openConnection();
                     con.setConnectTimeout((int) (DateUtils.SECOND_IN_MILLIS * CONNECTION_TIMEOUT));
                     con.setReadTimeout((int) (DateUtils.SECOND_IN_MILLIS * CONNECTION_TIMEOUT));

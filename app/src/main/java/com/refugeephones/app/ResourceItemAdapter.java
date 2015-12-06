@@ -106,7 +106,30 @@ public class ResourceItemAdapter extends BaseAdapter {
         openBtn.setOnClickListener(new OpenClickListener(item.getType(), item.getLink()));
         name.setText(item.getName());
         description.setText(item.getDescription());
-        activity.getMyApplication().getImageLoader().displayImage(item.getIcon(), icon);
+
+        if(item.getIcon().equals(""))
+        {
+            switch(item.getType())
+            {
+                case APP:
+                    icon.setBackgroundResource(R.drawable.touchscreensmartphone24);
+                    break;
+                case FACEBOOK:
+                    icon.setBackgroundResource(R.drawable.facebook24);
+                    break;
+                case URL:
+                    icon.setBackgroundResource(R.drawable.link24);
+                    break;
+                case YOUTUBE:
+                    icon.setBackgroundResource(R.drawable.youtube24);
+                    break;
+                default:
+                    AppLog.warn(TAG, "Did not find an icon for resource type "+item.getType());
+            }
+        }
+        else {
+            activity.getMyApplication().getImageLoader().displayImage(item.getIcon(), icon);
+        }
 
         return convertView;
     }

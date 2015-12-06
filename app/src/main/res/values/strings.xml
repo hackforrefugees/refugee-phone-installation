@@ -7,9 +7,11 @@
     </string-array>
 
     <string name="open">Open</string>
+    <string name="language">Language</string>
 
     <string name="downloading_data">Fetching data...</string>
 
     <string name="settings">Settings</string>
+
 
 </resources>

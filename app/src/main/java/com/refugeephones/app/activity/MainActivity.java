@@ -1,5 +1,6 @@
 package com.refugeephones.app.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -118,6 +119,14 @@ public class MainActivity extends BaseActivity {
         MenuItem mi = menu.add(Menu.NONE, 1, Menu.NONE, R.string.settings);
         mi.setIcon(android.R.drawable.ic_menu_preferences);
         mi.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        mi.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent i = new Intent(getBaseContext(), SettingsActivity.class);
+                startActivity(i);
+                return false;
+            }
+        });
 
         return super.onCreateOptionsMenu(menu);
     }

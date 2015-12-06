@@ -37,6 +37,6 @@ public class Prefs {
 
     public static String loadLanguageUrlPref()
     {
-        return  sharedPrefs.getString(Constants.PREFERENCE_LANGUAGE_URL, "");
+        return  sharedPrefs.getString(Constants.PREFERENCE_LANGUAGE_URL, Constants.JSON_DEFAULT_URL_RESOURCES);
     }
 }

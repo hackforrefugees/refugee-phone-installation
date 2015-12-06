@@ -1,20 +1,16 @@
 package com.refugeephones.app.fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.refugeephones.app.NewsItem;
-import com.refugeephones.app.NewsItemAdapter;
+import com.refugeephones.app.NewsRecyclerViewAdapter;
 import com.refugeephones.app.R;
 import com.refugeephones.app.utils.AppLog;
 
@@ -24,13 +20,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,14 +30,14 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
 
 public class NewsFragment extends BaseFragment {
 
-    private final String TAG = "com.refugeephones.app.fragment.NewsFragment";
+    private final String TAG = "NewsFragment";
 
-    private ListView m_newsListView;
     private String FEED_URL = "http://www.refugeephones.com/news?format=rss";
+    private ArrayList<NewsItem> mNewsItems = new ArrayList<NewsItem>();
+    private RecyclerView mNewsRecyclerView;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -74,18 +66,13 @@ public class NewsFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        m_newsListView = (ListView)view.findViewById(R.id.newsListView);
-        NewsItemAdapter newsItemAdapter = new NewsItemAdapter(getActivity());
-        m_newsListView.setAdapter(newsItemAdapter);
+        mNewsRecyclerView = (RecyclerView)view.findViewById(R.id.newsRecyclerView);
+        mNewsRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        mNewsRecyclerView.setLayoutManager(llm);
 
-        m_newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                NewsItem clickedNewsItem = ((NewsItemAdapter)m_newsListView.getAdapter()).getItem(position);
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(clickedNewsItem.getLink()));
-                startActivity(intent);
-            }
-        });
+        NewsRecyclerViewAdapter nrvAdapter = new NewsRecyclerViewAdapter(mNewsItems);
+        mNewsRecyclerView.setAdapter(nrvAdapter);
     }
 
     public void updateNews() {
@@ -169,8 +156,9 @@ public class NewsFragment extends BaseFragment {
         @Override
         protected void onPostExecute(ArrayList<NewsItem> newsItems) {
             AppLog.debug(TAG, "post execute");
+            mNewsItems = newsItems;
 
-            ((NewsItemAdapter)m_newsListView.getAdapter()).updateItems(newsItems);
+            ((NewsRecyclerViewAdapter)mNewsRecyclerView.getAdapter()).updateItems(newsItems);
         }
     }
 }

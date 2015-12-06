@@ -27,4 +27,16 @@ public class Prefs {
     {
         return  sharedPrefs.getString(Constants.PREFERENCE_LANGUAGE, "en");
     }
+
+    public static void saveLanguageUrlPref(String url)
+    {
+        AppLog.debug("", "Saving url to " + url);
+        editor.putString(Constants.PREFERENCE_LANGUAGE_URL, url);
+        editor.commit();
+    }
+
+    public static String loadLanguageUrlPref()
+    {
+        return  sharedPrefs.getString(Constants.PREFERENCE_LANGUAGE_URL, "");
+    }
 }

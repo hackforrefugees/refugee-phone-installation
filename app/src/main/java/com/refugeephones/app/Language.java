@@ -11,8 +11,11 @@ public class Language {
     private String mCode;
     @SerializedName("name")
     private String mName;
+    @SerializedName("url")
+    private String mUrl;
     public String getName() {
         return mName;
     }
     public String getCode() { return mCode; }
+    public String getUrl() { return mUrl; }
 }

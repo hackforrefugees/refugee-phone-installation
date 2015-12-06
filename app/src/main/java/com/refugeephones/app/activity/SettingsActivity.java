@@ -56,6 +56,7 @@ public class SettingsActivity extends BaseActivity {
     private LanguagesAdapter languagesAdapter = null;
     private List<String> languagesList;
     private List<String> languageCodesList;
+    private List<String> languageUrlList;
     private boolean languageSpinnerLoaded = false;
 
 
@@ -73,8 +74,10 @@ public class SettingsActivity extends BaseActivity {
         spinnerLanguages = (Spinner) findViewById(R.id.spinnerLanguages);
         languagesList = new ArrayList<String>();
         languageCodesList = new ArrayList<String>();
+        languageUrlList = new ArrayList<String>();
         languagesList.add("Loading languages...");
         languageCodesList.add("en");
+        languageUrlList.add("");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, languagesList);
 
@@ -87,7 +90,7 @@ public class SettingsActivity extends BaseActivity {
 
     private void downloadData(){
         new AsyncTask<Void, Void, List<Language>>(){
-            private String urlResources = "https://drive.google.com/uc?export=download&id=0Bzb0I-9LyL9BSnpLMWs1WDZwRjA";
+            private String urlResources = Constants.JSON_URL_LANGUAGES;
             private int CONNECTION_TIMEOUT = 30;   //seconds
 
             private Dialog diag = null;
@@ -130,9 +133,11 @@ public class SettingsActivity extends BaseActivity {
                 if(languages != null){
                     languagesList = new ArrayList<String>();
                     languageCodesList = new ArrayList<String>();
+                    languageUrlList = new ArrayList<String>();
                     for (Language lang: languages) {
                         languagesList.add(lang.getName());
                         languageCodesList.add(lang.getCode());
+                        languageUrlList.add(lang.getUrl());
                     }
                     ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getBaseContext(),
                             android.R.layout.simple_spinner_item, languagesList);
@@ -140,6 +145,7 @@ public class SettingsActivity extends BaseActivity {
                     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                     String selectedLanguage = Prefs.loadLanguagePref();
+                    String selectedLanguageUrl = Prefs.loadLanguageUrlPref();
 
                     spinnerLanguages.setAdapter(dataAdapter);
 
@@ -148,6 +154,7 @@ public class SettingsActivity extends BaseActivity {
                     if(index != -1 && index < spinnerLanguages.getCount())
                         spinnerLanguages.setSelection(index);
                     Prefs.saveLanguagePref(selectedLanguage);
+                    Prefs.saveLanguageUrlPref(selectedLanguageUrl);
                 }
                 else
                 {
@@ -167,8 +174,10 @@ public class SettingsActivity extends BaseActivity {
     private class CustomOnItemSelectedListener implements android.widget.AdapterView.OnItemSelectedListener {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            if(languageSpinnerLoaded)
+            if(languageSpinnerLoaded) {
                 Prefs.saveLanguagePref(languageCodesList.get(position));
+                Prefs.saveLanguageUrlPref(languageUrlList.get(position));
+            }
             languageSpinnerLoaded = true;
         }
 

@@ -70,7 +70,7 @@ public class ResourcesFragment extends BaseFragment {
 
     private void downloadData(){
         new AsyncTask<Void, Void, List<ResourceItem>>(){
-            private String urlResources = "https://www.dropbox.com/s/fvdxmgutt9bej2c/resources.json?raw=1";
+            private String urlResources = "https://www.dropbox.com/s/jlofdmj52jhndbl/resources_en.json?raw=1";
             private int CONNECTION_TIMEOUT = 30;   //seconds
 
             private Dialog diag = null;

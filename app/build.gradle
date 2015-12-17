@@ -23,16 +23,14 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
 
-    //third-party stuff
-    
-
-
+    //android
     compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:cardview-v7:22.0.+'
+    compile 'com.android.support:recyclerview-v7:22.0.+'
+
+    //third-party stuff
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     compile 'com.google.code.gson:gson:2.5'
-    compile 'com.android.support:support-v4:22.2.1'
-    compile 'com.android.support:cardview-v7:21.0.+'
-    compile 'com.android.support:recyclerview-v7:+'
     compile 'com.squareup.picasso:picasso:2.5.2'
 
 }

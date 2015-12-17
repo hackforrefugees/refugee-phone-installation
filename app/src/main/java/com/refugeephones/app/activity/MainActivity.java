@@ -134,7 +134,7 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retVal = true;
 
@@ -147,7 +147,7 @@ public class MainActivity extends BaseActivity {
         }
 
         return retVal;
-    }
+    }*/
 
 
 
